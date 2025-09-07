@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Revisão para a Prova — Quiz Interativo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: linear-gradient(180deg,#e9f5ff 0%, #fbfeff 60%);
+    --card: #ffffff;
+    --ink: #0f1724;
+    --muted: #6b7280;
+    --brand1: #0b5394;
+    --brand2: #22b14c;
+    --radius: 14px;
+    --shadow: 0 10px 30px rgba(11,35,80,0.08);
+    --focus: 0 0 0 4px rgba(11,83,148,0.18);
+    --transition: .22s ease;
+    --fontScale: 1;
+  }
+  body.dark{
+    --bg: linear-gradient(180deg,#071024 0%, #0f1724 60%);
+    --card: #0b1724;
+    --ink: #e6eef8;
+    --muted: #94a3b8;
+    --shadow: 0 10px 30px rgba(0,0,0,0.6);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; }
+  body{
+    margin:0;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: calc(16px * var(--fontScale));
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    transition: background var(--transition), color var(--transition);
+  }
+
+  header{
+    position:sticky; top:0; z-index:50;
+    background: linear-gradient(90deg,var(--brand1), var(--brand2));
+    color: #fff;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px;
+    padding:12px 18px;
+    border-bottom:3px solid rgba(255,255,255,0.06);
+    box-shadow: var(--shadow);
+    flex-wrap:wrap;
+  }
+  .title{ display:flex; gap:12px; align-items:center; }
+  .logo{ height:48px; width:auto; border-radius:8px; }
+  h1{ font-size: clamp(18px,2.6vw,24px); margin:0; font-weight:800; line-height:1; }
+  .subtitle{ font-weight:400; font-size:.9rem; opacity:.95; color: rgba(255,255,255,0.95); }
+
+  .controls{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .btn{
+    background: #fff; color: var(--brand1);
+    border:0; padding:8px 12px; border-radius:10px; cursor:pointer;
+    font-weight:700; box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+    transition: transform var(--transition), opacity var(--transition), box-shadow var(--transition);
+  }
+  .btn:hover{ transform: translateY(-3px); }
+  .btn.ghost{ background: rgba(255,255,255,0.12); color: #fff; box-shadow:none; border:1px solid rgba(255,255,255,0.06); }
+  .btn.small{ padding:8px; border-radius:8px; font-weight:600; }
+
+  main.wrap{ max-width:1000px; margin:20px auto; padding:18px; }
+
+  .card{
+    background: var(--card);
+    border-radius: var(--radius);
+    padding:16px;
+    margin-bottom:18px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(15,23,36,0.04);
+    transition: transform var(--transition), background var(--transition), color var(--transition);
+  }
+  body.dark .card{ border-color: rgba(255,255,255,0.03); }
+
+  .section-title{ font-size:1.05rem; margin:0 0 8px 0; color: var(--brand1); font-weight:800; }
+
+  .question-row{ display:flex; gap:8px; align-items:flex-start; flex-wrap:wrap; }
+  .question-text{ font-weight:700; margin:0; flex:1; }
+
+  .tools{ display:flex; gap:8px; align-items:center; }
+
+  .hint{
+    display:none;
+    margin-top:12px;
+    padding:12px;
+    border-left:4px solid var(--brand1);
+    background: rgba(14,82,148,0.04);
+    border-radius:8px;
+    color:var(--muted);
+  }
+  body.dark .hint{ background: rgba(255,255,255,0.02); color:var(--muted); }
+
+  textarea.answer{
+    width:100%;
+    min-height:90px;
+    margin-top:12px;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid rgba(15,23,36,0.06);
+    resize:vertical;
+    font-size:1rem;
+    background: transparent;
+    color: inherit;
+    transition: box-shadow var(--transition), border-color var(--transition);
+  }
+  textarea.answer:focus{ outline:none; box-shadow: var(--focus); border-color: var(--brand1); }
+
+  .tool-indicator{ font-size:.9rem; color:var(--muted); margin-left:6px; }
+
+  .row-between{ display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; }
+
+  .scroll-top{
+    position:fixed; right:18px; bottom:18px; z-index:60;
+    background: var(--brand1); color:white; border:0; width:48px; height:48px; border-radius:50%;
+    cursor:pointer; display:none; align-items:center; justify-content:center; box-shadow: var(--shadow);
+  }
+
+  @media (max-width:700px){
+    header{ padding:12px; }
+    .question-row{ flex-direction:column; align-items:stretch; }
+    .tools{ margin-top:6px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="title">
+    <img class="logo" src="https://opiniaobrasilia.com.br/wp-content/uploads/2020/12/RenovaDF.jpeg" alt="Logo Renova DF">
+    <div>
+      <h1>Revisão para a Prova</h1>
+      <div class="subtitle">Comunicação, Direitos, Relações, Orientação Profissional e Letramento Digital</div>
+    </div>
+  </div>
+
+  <div class="controls" aria-hidden="false">
+    <button id="playAll" class="btn small">🔊 Ler tudo</button>
+    <button id="stopVoice" class="btn small">⏹️ Parar</button>
+    <button id="fontPlus" class="btn small">A+</button>
+    <button id="fontMinus" class="btn small">A-</button>
+    <button id="toggleDark" class="btn ghost small" title="Alternar tema">🌙</button>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+  <section class="card">
+    <h2 class="section-title">Instruções</h2>
+    <p>Use 🔈 para ouvir a pergunta, 🎤 para responder por voz (será inserido no campo de texto) e escreva sua resposta no campo abaixo. Clique na lâmpada 💡 para ver uma dica (pequena orientação).</p>
+  </section>
+
+  <div id="questions"></div>
+</main>
+
+<button id="scrollTop" class="scroll-top" title="Voltar ao topo">⬆️</button>
+
+<script>
+/* === Dados das 20 perguntas com dicas curtas === */
+const DATA = [
+  { pergunta:"Por que é importante entender bem um bilhete ou aviso no canteiro de obras?", dica:"Evita erros, orienta procedimentos e protege a segurança."},
+  { pergunta:"Como a comunicação clara entre os colegas pode evitar acidentes?", dica:"Instruções claras reduzem falhas e mal-entendidos."},
+  { pergunta:"Dê um exemplo de como uma instrução mal compreendida pode causar erro na obra.", dica:"Medidas erradas ao cortar material ou usar ferramenta inadequada."},
+  { pergunta:"Explique por que todo trabalhador precisa saber ler placas de segurança.", dica:"As placas indicam riscos e procedimentos de proteção."},
+  { pergunta:"Qual é a importância de respeitar os direitos dos trabalhadores na construção civil?", dica:"Garante dignidade, saúde e condições justas de trabalho."},
+  { pergunta:"Por que o uso de EPIs é um direito e também um dever?", dica:"Protege a saúde e evita acidentes; é responsabilidade coletiva."},
+  { pergunta:"Como as pausas para descanso ajudam o trabalhador?", dica:"Reduz fadiga, melhora atenção e evita acidentes."},
+  { pergunta:"Explique a importância de receber o salário em dia.", dica:"É o sustento do trabalhador e permite planejamento."},
+  { pergunta:"Por que é importante respeitar os colegas de obra, mesmo quando há diferenças de opinião?", dica:"Preserva clima saudável e cooperação na equipe."},
+  { pergunta:"Como pedir ajuda de forma educada no trabalho?", dica:"Seja claro, cortês e objetivo ao solicitar apoio."},
+  { pergunta:"Explique como a empatia pode melhorar o ambiente da obra.", dica:"Compreender o outro reduz conflitos e melhora colaboração."},
+  { pergunta:"Dê um exemplo de uma atitude que atrapalha a convivência no canteiro.", dica:"Faltar com respeito, atrasos constantes ou desorganização."},
+  { pergunta:"Por que vale a pena continuar estudando mesmo já tendo um emprego?", dica:"Aumenta oportunidades e melhora habilidades."},
+  { pergunta:"Explique como ter um bom currículo pode ajudar a conseguir uma vaga melhor.", dica:"Demonstra experiência e qualificação ao empregador."},
+  { pergunta:"Qual a importância de chegar no horário para o trabalho ou entrevista?", dica:"Mostra responsabilidade e respeito pelo tempo dos outros."},
+  { pergunta:"O que significa ter responsabilidade no ambiente de trabalho?", dica:"Cumprir tarefas com cuidado e cumprir regras de segurança."},
+  { pergunta:"Como o celular pode ser usado para facilitar a vida no trabalho?", dica:"Comunicar, organizar tarefas e pesquisar informações."},
+  { pergunta:"Explique por que é importante saber enviar um e-mail.", dica:"É comunicação formal e documentada com colegas e clientes."},
+  { pergunta:"Dê um exemplo de como a internet pode ajudar um trabalhador da construção civil.", dica:"Pesquisar técnicas, materiais e normas de segurança."},
+  { pergunta:"Por que é importante aprender a usar aplicativos de mensagem para se comunicar na obra?", dica:"Permite troca rápida de informações e combinações."}
+];
+
+/* === Renderização das perguntas === */
+const container = document.getElementById('questions');
+
+DATA.forEach((q, idx) => {
+  const sec = document.createElement('section');
+  sec.className = 'card';
+  sec.innerHTML = `
+    <div class="row-between">
+      <div style="flex:1">
+        <div class="question-row">
+          <p class="question-text">${idx+1}. ${q.pergunta}</p>
+          <div class="tools" aria-hidden="false">
+            <button class="btn small" data-speak="${idx}" title="Ouvir pergunta">🔈</button>
+            <button class="btn small" data-mic="${idx}" title="Responder por voz">🎤</button>
+            <button class="btn small" data-hint="${idx}" title="Mostrar dica">💡</button>
+          </div>
+        </div>
+        <div id="hint-${idx}" class="hint" aria-hidden="true">${q.dica}</div>
+      </div>
+    </div>
+    <textarea class="answer" id="answer-${idx}" placeholder="Escreva sua resposta aqui..."></textarea>
+  `;
+  container.appendChild(sec);
+});
+
+/* === Text-to-Speech (TTS) === */
+function speakText(text){
+  if(!('speechSynthesis' in window)){ alert('TTS não suportado neste navegador.'); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'pt-BR';
+  u.rate = 1;
+  window.speechSynthesis.speak(u);
+}
+
+/* Delegation: ouvir pergunta e mostrar dica */
+container.addEventListener('click', (ev) => {
+  const sp = ev.target.closest('[data-speak]');
+  if(sp){
+    const i = Number(sp.dataset.speak);
+    speakText(DATA[i].pergunta);
+    return;
+  }
+  const hi = ev.target.closest('[data-hint]');
+  if(hi){
+    const i = Number(hi.dataset.hint);
+    const el = document.getElementById('hint-'+i);
+    const shown = el.classList.toggle('show');
+    el.style.display = shown ? 'block' : 'none';
+    el.setAttribute('aria-hidden', !shown);
+    if(shown) speakText('Dica: ' + DATA[i].dica);
+    return;
+  }
+});
+
+/* === Play all / Stop voice === */
+document.getElementById('playAll').addEventListener('click', ()=> {
+  const all = DATA.map((d, i) => `${i+1}. ${d.pergunta}`).join('. ');
+  speakText(all);
+});
+document.getElementById('stopVoice').addEventListener('click', ()=> {
+  if('speechSynthesis' in window) speechSynthesis.cancel();
+  // also stop any ongoing recognition if present
+  if(window._currentRecog){ try{ window._currentRecog.onresult = null; window._currentRecog.onerror=null; window._currentRecog.onend=null; window._currentRecog.stop(); }catch(e){} window._currentRecog=null; }
+});
+
+/* === Speech-to-Text (STT) para cada pergunta === */
+const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+
+container.addEventListener('click', (ev) => {
+  const micBtn = ev.target.closest('[data-mic]');
+  if(!micBtn) return;
+  const idx = Number(micBtn.dataset.mic);
+  const textarea = document.getElementById('answer-'+idx);
+
+  if(!SpeechRec){
+    alert('Reconhecimento de voz não suportado neste navegador. Use Chrome/Edge (desktop) ou navegadores compatíveis no celular.');
+    return;
+  }
+
+  // Stop any previous recognition
+  if(window._currentRecog){ try{ window._currentRecog.onresult = null; window._currentRecog.onerror=null; window._currentRecog.onend=null; window._currentRecog.stop(); }catch(e){} window._currentRecog=null; }
+
+  const rec = new SpeechRec();
+  window._currentRecog = rec;
+  rec.lang = 'pt-BR';
+  rec.interimResults = false;
+  rec.maxAlternatives = 1;
+
+  // visual feedback
+  const originalText = micBtn.textContent;
+  micBtn.textContent = '🎙️ ouvindo...';
+  micBtn.disabled = true;
+
+  rec.onresult = (evt) => {
+    const text = evt.results[0][0].transcript;
+    // append or replace? we'll append if textarea already has content
+    const current = textarea.value ? (textarea.value + '\n' + text) : text;
+    textarea.value = current;
+    // opcional: ler de volta a resposta reconhecida
+    speakText('Você disse: ' + text);
+  };
+
+  rec.onerror = (e) => {
+    console.warn('STT error', e);
+    alert('Erro no reconhecimento de voz: ' + (e.error || 'unknown'));
+  };
+
+  rec.onend = () => {
+    micBtn.textContent = originalText;
+    micBtn.disabled = false;
+    window._currentRecog = null;
+  };
+
+  try{
+    rec.start();
+  }catch(err){
+    alert('Não foi possível iniciar o reconhecimento de voz: ' + err.message);
+    micBtn.textContent = originalText;
+    micBtn.disabled = false;
+    window._currentRecog = null;
+  }
+});
+
+/* === Font controls (usa variável CSS) === */
+let fontScale = Number(localStorage.getItem('quiz_fontScale') || 1);
+function applyFontScale(){
+  document.documentElement.style.setProperty('--fontScale', fontScale);
+  localStorage.setItem('quiz_fontScale', fontScale);
+}
+document.getElementById('fontPlus').addEventListener('click', ()=>{ fontScale = +(fontScale + 0.1).toFixed(2); applyFontScale(); });
+document.getElementById('fontMinus').addEventListener('click', ()=>{ fontScale = Math.max(0.8, +(fontScale - 0.1).toFixed(2)); applyFontScale(); });
+applyFontScale();
+
+/* === Dark mode toggle (salva no localStorage) === */
+const darkKey = 'quiz_dark_mode';
+function applyDarkFromStorage(){
+  const stored = localStorage.getItem(darkKey);
+  if(stored === '1'){ document.body.classList.add('dark'); }
+  else { document.body.classList.remove('dark'); }
+}
+document.getElementById('toggleDark').addEventListener('click', ()=>{
+  document.body.classList.toggle('dark');
+  localStorage.setItem(darkKey, document.body.classList.contains('dark') ? '1' : '0');
+});
+applyDarkFromStorage();
+
+/* === Scroll to top button === */
+const scrollBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', ()=> {
+  if(window.scrollY > 220) scrollBtn.style.display = 'flex'; else scrollBtn.style.display = 'none';
+});
+scrollBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}) );
+
+/* === small UX: close hints on init (ensure display none) === */
+DATA.forEach((_,i)=>{ const el = document.getElementById('hint-'+i); if(el){ el.style.display = 'none'; el.classList.remove('show'); el.setAttribute('aria-hidden','true'); }});
+</script>
+</body>
+</html>
