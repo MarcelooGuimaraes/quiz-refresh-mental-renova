@@ -23,56 +23,57 @@
   --fontScale: 1;
 }
 * { box-sizing: border-box; }
-body{ margin:0; font-family: Inter, system-ui, sans-serif; background: var(--bg-light); color: var(--ink-light); line-height:1.6; font-size: calc(16px * var(--fontScale)); transition: background var(--transition), color var(--transition);}
-body.dark{ background: var(--bg-dark); color: var(--ink-dark);}
-header{ position:sticky; top:0; background: linear-gradient(135deg,var(--brand-blue),var(--brand-green)); color:white; display:flex; justify-content:space-between; align-items:center; padding:12px 24px; box-shadow:0 4px 12px rgba(0,0,0,.1); border-bottom:3px solid var(--brand-green); flex-wrap:wrap; z-index:100;}
-header .title{ display:flex; align-items:center; gap:16px;}
-header .title img{ height:50px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,.2);}
-header h1{ margin:0; font-size:clamp(18px,4vw,28px);}
-.controls{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:8px;}
-.btn{ border:none; padding:10px 16px; border-radius:12px; cursor:pointer; background:#f9fafb; color:#111; font-weight:600; transition: transform var(--transition), background var(--transition), box-shadow var(--transition);}
-body.dark .btn{ background:#374151; color:white;}
-.btn:hover{ transform: translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.2); background:#e0f2fe;}
-body.dark .btn:hover{ background:#4b5563;}
-.btn.primary{ background: linear-gradient(135deg,var(--brand-blue),var(--brand-green)); color:white;}
-main.wrap{ max-width:900px; margin:20px auto 40px; padding:20px;}
-.instruction-card{ background:#e0f7ff; border-left:6px solid var(--brand-blue); padding:18px; border-radius: var(--radius); margin-bottom:20px; box-shadow:0 4px 16px rgba(0,0,0,.1);}
-body.dark .instruction-card{ background:#1e293b; border-left:6px solid var(--brand-green); color:white;}
-.card{ background: var(--card-light); border-radius: var(--radius); padding:20px; margin-bottom:20px; box-shadow:var(--shadow); transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border var(--transition);}
-.card:hover{ transform: translateY(-6px); box-shadow:0 16px 32px rgba(0,0,0,.3);}
-body.dark .card{ background: var(--card-dark);}
-.card.active-dark{ border: 2px solid #fde68a; box-shadow: 0 0 20px #fde68a;}
-.question{ font-weight:700; margin-bottom:14px; font-size:clamp(16px,2.5vw,20px);}
-.actions{ display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap;}
-textarea{ width:100%; min-height:60px; padding:10px; border-radius:10px; border:1px solid #ccc; font-size:1rem; resize:vertical; transition: background var(--transition), color var(--transition), border var(--transition);}
-body.dark textarea{ background:#374151; color:white; border-color:#555;}
-textarea.correct{ border-color:#16a34a; background:#d1fae5; animation: pulseCorrect 0.5s;}
-textarea.wrong{ border-color:#dc2626; background:#fee2e2; animation: pulseWrong 0.5s;}
-@keyframes pulseCorrect{0%{transform:scale(1);}50%{transform:scale(1.03);}100%{transform:scale(1);}}
-@keyframes pulseWrong{0%{transform:scale(1);}50%{transform:scale(1.03);}100%{transform:scale(1);}}
-.hint-text{ display:none; margin-top:10px; padding:12px; background:#f0f9ff; border-left:4px solid var(--brand-blue); border-radius:8px; font-size:0.95rem; transition: transform 0.3s, opacity 0.3s;}
-.hint-text.show{ display:block; transform:translateY(0); opacity:1;}
-body.dark .hint-text{ background:#1e293b; border-left:4px solid var(--brand-green); color:white;}
-.modal-bg{ display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:100;}
-.modal{ background:white; border-radius:20px; max-width:800px; width:90%; max-height:80%; overflow-y:auto; padding:24px; position:relative; box-shadow:0 12px 28px rgba(0,0,0,.3);}
-body.dark .modal{ background:#1f2937; color:white;}
-.modal h2{ margin-top:0; color:var(--brand-blue);}
-.close-modal{ position:absolute; top:12px; right:12px; background:none; border:none; font-size:22px; cursor:pointer;}
-.answer-row{ margin-bottom:12px; padding:12px; border-radius:12px; background:#f9fafb; border:1px solid #ccc; transition: all 0.3s ease; opacity:0; transform:translateY(10px);}
-.answer-row.show{ opacity:1; transform:translateY(0);}
-body.dark .answer-row{ background:#374151; border-color:#555;}
-.answer-row p{ margin:6px 0;}
-.correct{ color:#16a34a; font-weight:700;}
-.wrong{ color:#dc2626; font-weight:700;}
-.speaking{ animation: pulseSpeak 1s infinite; background:#fde68a !important;}
-@keyframes pulseSpeak{0%{transform:scale(1);}50%{transform:scale(1.1);}100%{transform:scale(1);}}
-footer{ text-align:center; padding:16px 0; color:#555; font-size:0.9rem; border-top:1px solid #ccc;}
-body.dark footer{ color:#aaa; border-color:#444;}
-@media(max-width:600px){
-  header{ flex-direction:column; align-items:flex-start;}
-  .controls{ margin-top:10px; justify-content:flex-start;}
-  .actions{ flex-direction:column;}
-}
+body{ margin:0; font-family: Inter, system-ui, sans-serif; background: var(--bg-light); color: var(--ink-light); line-height:1.6; font-size: calc(16px * var(--fontScale)); transition: background var(--transition), color var(--transition);} 
+body.dark{ background: var(--bg-dark); color: var(--ink-dark);} 
+header{ position:sticky; top:0; background: linear-gradient(135deg,var(--brand-blue),var(--brand-green)); color:white; display:flex; justify-content:space-between; align-items:center; padding:12px 24px; box-shadow:0 4px 12px rgba(0,0,0,.1); border-bottom:3px solid var(--brand-green); flex-wrap:wrap; z-index:100;} 
+header .title{ display:flex; align-items:center; gap:16px;} 
+header .title img{ height:50px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,.2);} 
+header h1{ margin:0; font-size:clamp(18px,4vw,28px);} 
+.controls{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:8px;} 
+.btn{ border:none; padding:10px 16px; border-radius:12px; cursor:pointer; background:#f9fafb; color:#111; font-weight:600; transition: transform var(--transition), background var(--transition), box-shadow var(--transition);} 
+body.dark .btn{ background:#374151; color:white;} 
+.btn:hover{ transform: translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.2); background:#e0f2fe;} 
+body.dark .btn:hover{ background:#4b5563;} 
+.btn.primary{ background: linear-gradient(135deg,var(--brand-blue),var(--brand-green)); color:white;} 
+select.lang{ appearance:none; border:none; padding:10px 16px; border-radius:12px; font-weight:700; cursor:pointer;} 
+main.wrap{ max-width:900px; margin:20px auto 40px; padding:20px;} 
+.instruction-card{ background:#e0f7ff; border-left:6px solid var(--brand-blue); padding:18px; border-radius: var(--radius); margin-bottom:20px; box-shadow:0 4px 16px rgba(0,0,0,.1);} 
+body.dark .instruction-card{ background:#1e293b; border-left:6px solid var(--brand-green); color:white;} 
+.card{ background: var(--card-light); border-radius: var(--radius); padding:20px; margin-bottom:20px; box-shadow:var(--shadow); transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border var(--transition);} 
+.card:hover{ transform: translateY(-6px); box-shadow:0 16px 32px rgba(0,0,0,.3);} 
+body.dark .card{ background: var(--card-dark);} 
+.card.active-dark{ border: 2px solid #fde68a; box-shadow: 0 0 20px #fde68a;} 
+.question{ font-weight:700; margin-bottom:14px; font-size:clamp(16px,2.5vw,20px);} 
+.actions{ display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap;} 
+.options{ display:grid; gap:10px; } 
+.option{ display:flex; align-items:center; gap:10px; background:#f9fafb; border:1px solid #d1d5db; border-radius:10px; padding:10px; cursor:pointer; transition: transform var(--transition), background var(--transition), border var(--transition);} 
+.option:hover{ transform: translateX(3px); background:#e0f2fe;} 
+body.dark .option{ background:#374151; border-color:#4b5563;} 
+.option input{ width:18px; height:18px; accent-color: var(--brand-blue);} 
+.option.correct{ border-color:#16a34a; background:#d1fae5; }
+.option.wrong{ border-color:#dc2626; background:#fee2e2; }
+.hint-text{ display:none; margin-top:10px; padding:12px; background:#f0f9ff; border-left:4px solid var(--brand-blue); border-radius:8px; font-size:0.95rem; transition: transform 0.3s, opacity 0.3s;} 
+.hint-text.show{ display:block; transform:translateY(0); opacity:1;} 
+body.dark .hint-text{ background:#1e293b; border-left:4px solid var(--brand-green); color:white;} 
+.modal-bg{ display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:100;} 
+.modal{ background:white; border-radius:20px; max-width:900px; width:92%; max-height:80%; overflow-y:auto; padding:24px; position:relative; box-shadow:0 12px 28px rgba(0,0,0,.3);} 
+body.dark .modal{ background:#1f2937; color:white;} 
+.modal h2{ margin-top:0; color:var(--brand-blue);} 
+.close-modal{ position:absolute; top:12px; right:12px; background:none; border:none; font-size:22px; cursor:pointer;} 
+.answer-row{ margin-bottom:12px; padding:12px; border-radius:12px; background:#f9fafb; border:1px solid #ccc; transition: all 0.3s ease; opacity:0; transform:translateY(10px);} 
+.answer-row.show{ opacity:1; transform:translateY(0);} 
+body.dark .answer-row{ background:#374151; border-color:#555;} 
+.answer-row p{ margin:6px 0;} 
+.correctTxt{ color:#16a34a; font-weight:700;} 
+.wrongTxt{ color:#dc2626; font-weight:700;} 
+.speaking{ animation: pulseSpeak 1s infinite; background:#fde68a !important;} 
+@keyframes pulseSpeak{0%{transform:scale(1);}50%{transform:scale(1.1);}100%{transform:scale(1);}} 
+footer{ text-align:center; padding:16px 0; color:#555; font-size:0.9rem; border-top:1px solid #ccc;} 
+body.dark footer{ color:#aaa; border-color:#444;} 
+.scorebar{ display:flex; gap:12px; align-items:center; margin: 12px 0 20px;} 
+.scorebar .pill{ background:#e5f6ff; color:#064663; padding:6px 10px; border-radius:999px; font-weight:700;} 
+body.dark .scorebar .pill{ background:#16324a; color:#bfe8ff;} 
+@media(max-width:600px){ header{ flex-direction:column; align-items:flex-start;} .controls{ margin-top:10px; justify-content:flex-start;} .actions{ flex-direction:column;} }
 </style>
 </head>
 <body>
@@ -80,48 +81,109 @@ body.dark footer{ color:#aaa; border-color:#444;}
 <header>
   <div class="title">
     <img src="https://opiniaobrasilia.com.br/wp-content/uploads/2020/12/RenovaDF.jpeg" alt="Logo Renova DF">
-    <h1>Revisão – Módulo Introdutório</h1>
+    <h1 id="mainTitle">Revisão – Módulo Introdutório</h1>
   </div>
   <div class="controls">
+    <select class="lang" id="lang">
+      <option value="pt" selected>🇧🇷 Português</option>
+      <option value="en">🇺🇸 English</option>
+      <option value="es">🇪🇸 Español</option>
+    </select>
     <button class="btn" id="toggleDark">🌙</button>
     <button class="btn primary" id="playAll">🔊 Ler tudo</button>
     <button class="btn" id="stopVoice">⏹️</button>
     <button class="btn" id="fontPlus">A+</button>
     <button class="btn" id="fontMinus">A-</button>
+    <button class="btn" id="finalize">✅ Finalizar</button>
     <button class="btn" id="reviewAnswers">📋 Revisar respostas</button>
     <button class="btn" id="resetQuiz">🔄 Refazer Quiz</button>
   </div>
 </header>
 
 <main class="wrap" id="app">
-  <section class="instruction-card">
-    <h2>Instruções</h2>
-    <ul>
-      <li>Clique em <strong>🔈</strong> para ouvir a pergunta.</li>
+  <section class="instruction-card" id="instCard">
+    <h2 id="instTitle">Instruções</h2>
+    <ul id="instList">
+      <li>Selecione uma alternativa <strong>A, B, C ou D</strong> em cada questão.</li>
+      <li>Clique em <strong>🔈</strong> para ouvir a pergunta e opções.</li>
       <li>Use <strong>💡</strong> para ver uma dica sobre a resposta.</li>
-      <li>Você pode responder digitando na caixa ou usando <strong>🎙️</strong> para gravar via voz.</li>
-      <li>Use os botões <strong>A+</strong> e <strong>A-</strong> para ajustar o tamanho da fonte.</li>
-      <li>Use o botão <strong>🌙</strong> para alternar entre modo claro e escuro.</li>
-      <li>Quando terminar, clique em <strong>📋 Revisar respostas</strong> para conferir suas respostas e gabarito.</li>
+      <li>Use <strong>A+</strong> e <strong>A-</strong> para ajustar o tamanho da fonte.</li>
+      <li>Use o botão <strong>🌙</strong> para alternar modo claro/escuro.</li>
+      <li>Ao final, clique em <strong>📋 Revisar respostas</strong> para conferir seu desempenho.</li>
     </ul>
+    <div class="scorebar">
+      <span class="pill" id="scorePill">0% ✅</span>
+      <span class="pill" id="timePill">00:00 ⏱️</span>
+    </div>
   </section>
 </main>
 
 <div class="modal-bg" id="modal">
   <div class="modal">
     <button class="close-modal" id="closeModal">✖️</button>
-    <h2>Revisão de Respostas</h2>
+    <h2 id="reviewTitle">Revisão de Respostas</h2>
     <div id="modalContent"></div>
   </div>
 </div>
 
-<footer>
-  Criado por Marcelo Emanoel
-</footer>
+<footer id="signature">Criado por Marcelo Emanoel</footer>
 
 <script>
-// Perguntas
-const DATA = [
+// ===== I18N =====
+const I18N = {
+  pt: {
+    htmlLang: 'pt-BR', title: 'Revisão – Módulo Introdutório', playAll:'🔊 Ler tudo', stop:'⏹️', finalize:'✅ Finalizar', review:'📋 Revisar respostas', reset:'🔄 Refazer Quiz',
+    instTitle:'Instruções',
+    instItems:[
+      'Selecione uma alternativa <strong>A, B, C ou D</strong> em cada questão.',
+      'Clique em <strong>🔈</strong> para ouvir a pergunta e opções.',
+      'Use <strong>💡</strong> para ver uma dica sobre a resposta.',
+      'Use <strong>A+</strong> e <strong>A-</strong> para ajustar o tamanho da fonte.',
+      'Use o botão <strong>🌙</strong> para alternar modo claro/escuro.',
+      'Ao final, clique em <strong>📋 Revisar respostas</strong> para conferir seu desempenho.'
+    ],
+    reviewTitle:'Revisão de Respostas', placeholder:'Selecione uma alternativa',
+    labels:{ yourAnswer:'Sua resposta', key:'Gabarito', correct:'Correto', wrong:'Incorreto', option:'Opção' },
+    pills:{ score: v=> `${v}% ✅`, time:t=> `${t} ⏱️` },
+    voice:'pt-BR',
+    recUnsupported:'Seu navegador não suporta reconhecimento de voz.',
+  },
+  en: {
+    htmlLang: 'en', title: 'Review – Introductory Module', playAll:'🔊 Read all', stop:'⏹️', finalize:'✅ Finish', review:'📋 Review answers', reset:'🔄 Retake Quiz',
+    instTitle:'Instructions',
+    instItems:[
+      'Select one alternative <strong>A, B, C or D</strong> for each question.',
+      'Click <strong>🔈</strong> to hear the question and options.',
+      'Use <strong>💡</strong> to see a hint.',
+      'Use <strong>A+</strong> and <strong>A-</strong> to adjust font size.',
+      'Use the <strong>🌙</strong> button to toggle dark mode.',
+      'When done, click <strong>📋 Review answers</strong> to check your performance.'
+    ],
+    reviewTitle:'Answer Review', placeholder:'Select one option',
+    labels:{ yourAnswer:'Your answer', key:'Answer key', correct:'Correct', wrong:'Incorrect', option:'Option' },
+    pills:{ score: v=> `${v}% ✅`, time:t=> `${t} ⏱️` },
+    voice:'en-US', recUnsupported:'Your browser does not support speech recognition.',
+  },
+  es: {
+    htmlLang: 'es', title: 'Revisión – Módulo Introductorio', playAll:'🔊 Leer todo', stop:'⏹️', finalize:'✅ Finalizar', review:'📋 Revisar respuestas', reset:'🔄 Rehacer Quiz',
+    instTitle:'Instrucciones',
+    instItems:[
+      'Selecciona una alternativa <strong>A, B, C o D</strong> en cada pregunta.',
+      'Haz clic en <strong>🔈</strong> para escuchar la pregunta y opciones.',
+      'Usa <strong>💡</strong> para ver una pista.',
+      'Usa <strong>A+</strong> y <strong>A-</strong> para ajustar el tamaño de letra.',
+      'Usa el botón <strong>🌙</strong> para el modo oscuro.',
+      'Al terminar, haz clic en <strong>📋 Revisar respuestas</strong> para ver tu desempeño.'
+    ],
+    reviewTitle:'Revisión de Respuestas', placeholder:'Selecciona una opción',
+    labels:{ yourAnswer:'Tu respuesta', key:'Gabarito', correct:'Correcto', wrong:'Incorrecto', option:'Opción' },
+    pills:{ score: v=> `${v}% ✅`, time:t=> `${t} ⏱️` },
+    voice:'es-ES', recUnsupported:'Tu navegador no admite reconocimiento de voz.',
+  }
+};
+
+// Base PT data (from your prompt)
+const PT_DATA = [
   {t:"1. Por que é importante entender bem um bilhete ou aviso no canteiro de obras?", hint:"Evita mal-entendidos e acidentes.", answer:"Evita mal-entendidos e acidentes."},
   {t:"2. Como a comunicação clara entre os colegas pode evitar acidentes?", hint:"A comunicação correta evita erros perigosos.", answer:"Evita acidentes com comunicação clara."},
   {t:"3. Dê um exemplo de como uma instrução mal compreendida pode causar erro na obra.", hint:"Uma tarefa feita errado pode comprometer a segurança.", answer:"Uma instrução mal compreendida pode causar acidentes ou retrabalho."},
@@ -144,106 +206,310 @@ const DATA = [
   {t:"20. Por que é importante aprender a usar aplicativos de mensagem para se comunicar na obra?", hint:"Facilitam a comunicação rápida.", answer:"Para comunicação rápida e eficiente."}
 ];
 
-// Render perguntas
+// EN + ES translations for question/answer/hint
+const EN_DATA = [
+  {t:"1. Why is it important to clearly understand a note or notice on the construction site?", hint:"It prevents misunderstandings and accidents.", answer:"It prevents misunderstandings and accidents."},
+  {t:"2. How can clear communication among coworkers prevent accidents?", hint:"Correct communication avoids dangerous errors.", answer:"It prevents accidents through clear communication."},
+  {t:"3. Give an example of how a misunderstood instruction can cause an error on site.", hint:"A task done wrong can compromise safety.", answer:"A misunderstood instruction can cause accidents or rework."},
+  {t:"4. Explain why every worker needs to read safety signs.", hint:"Signs inform risks and important rules.", answer:"To avoid accidents and follow safety rules."},
+  {t:"5. What is the importance of respecting workers' rights in construction?", hint:"It ensures dignity and safety for all.", answer:"To guarantee safety and workers' rights."},
+  {t:"6. Why is using PPE both a right and a duty?", hint:"It protects the worker and coworkers.", answer:"For individual and collective protection."},
+  {t:"7. How do rest breaks help the worker?", hint:"They reduce fatigue and increase safety.", answer:"They reduce fatigue and increase safety."},
+  {t:"8. Explain the importance of receiving wages on time.", hint:"It ensures motivation and livelihood.", answer:"It guarantees livelihood and motivation."},
+  {t:"9. Why is it important to respect coworkers even with differing opinions?", hint:"It keeps a healthy environment.", answer:"To preserve a healthy work environment."},
+  {t:"10. How to ask for help politely at work?", hint:"With respect and clarity.", answer:"By asking clearly and respectfully."},
+  {t:"11. Explain how empathy can improve the job site environment.", hint:"It helps to understand and support coworkers.", answer:"By understanding and supporting coworkers."},
+  {t:"12. Give an example of an attitude that harms coexistence on site.", hint:"Disrespecting rules or coworkers.", answer:"Ignoring rules or disrespecting coworkers."},
+  {t:"13. Why is it worth studying even when already employed?", hint:"It helps professional growth.", answer:"It improves opportunities and professional growth."},
+  {t:"14. Explain how having a good résumé can help get a better job.", hint:"It shows your skills clearly.", answer:"It clearly presents your skills."},
+  {t:"15. What is the importance of arriving on time for work or an interview?", hint:"It shows responsibility.", answer:"It shows responsibility and commitment."},
+  {t:"16. What does it mean to have responsibility at work?", hint:"Fulfilling tasks and respecting rules.", answer:"Doing tasks correctly and following rules."},
+  {t:"17. How can a phone be used to make work life easier?", hint:"It helps with communication and organization.", answer:"Organizing tasks and communication."},
+  {t:"18. Explain why knowing how to send an email is important.", hint:"It enables formal, professional communication.", answer:"Sending formal messages correctly."},
+  {t:"19. Give an example of how the internet can help a construction worker.", hint:"Finding information or courses.", answer:"Accessing information and online courses."},
+  {t:"20. Why is it important to learn to use messaging apps to communicate on site?", hint:"They enable quick communication.", answer:"For quick and efficient communication."}
+];
+
+const ES_DATA = [
+  {t:"1. ¿Por qué es importante comprender bien una nota o aviso en la obra?", hint:"Evita malentendidos y accidentes.", answer:"Evita malentendidos y accidentes."},
+  {t:"2. ¿Cómo puede la comunicación clara entre compañeros evitar accidentes?", hint:"La comunicación correcta evita errores peligrosos.", answer:"Evita accidentes con comunicación clara."},
+  {t:"3. Da un ejemplo de cómo una instrucción mal entendida puede causar un error en la obra.", hint:"Una tarea mal hecha puede comprometer la seguridad.", answer:"Una instrucción mal entendida puede causar accidentes o retrabajo."},
+  {t:"4. Explica por qué todo trabajador necesita leer los carteles de seguridad.", hint:"Los carteles informan riesgos y reglas importantes.", answer:"Para evitar accidentes y seguir las normas de seguridad."},
+  {t:"5. ¿Cuál es la importancia de respetar los derechos de los trabajadores en la construcción?", hint:"Garantiza dignidad y seguridad para todos.", answer:"Para garantizar seguridad y derechos a los trabajadores."},
+  {t:"6. ¿Por qué el uso de EPP es un derecho y también un deber?", hint:"Protege al trabajador y a sus compañeros.", answer:"Para protección individual y colectiva."},
+  {t:"7. ¿Cómo ayudan los descansos al trabajador?", hint:"Reducen el cansancio y aumentan la seguridad.", answer:"Disminuyen la fatiga y aumentan la seguridad."},
+  {t:"8. Explica la importancia de recibir el salario a tiempo.", hint:"Asegura motivación y sustento.", answer:"Garantiza sustento y motivación."},
+  {t:"9. ¿Por qué es importante respetar a los compañeros aunque haya diferencias de opinión?", hint:"Mantiene un ambiente saludable.", answer:"Para preservar un ambiente de trabajo saludable."},
+  {t:"10. ¿Cómo pedir ayuda de manera educada en el trabajo?", hint:"Con respeto y claridad.", answer:"Preguntando de forma clara y respetuosa."},
+  {t:"11. Explica cómo la empatía puede mejorar el ambiente de la obra.", hint:"Ayuda a entender y apoyar a los compañeros.", answer:"Comprendiendo y apoyando a los compañeros."},
+  {t:"12. Da un ejemplo de una actitud que perjudica la convivencia en la obra.", hint:"Faltar el respeto a las reglas o a los compañeros.", answer:"Ignorar reglas o faltar el respeto a los compañeros."},
+  {t:"13. ¿Por qué vale la pena seguir estudiando aun teniendo trabajo?", hint:"Ayuda a crecer profesionalmente.", answer:"Mejora oportunidades y crecimiento profesional."},
+  {t:"14. Explica cómo tener un buen currículum ayuda a conseguir un mejor puesto.", hint:"Muestra tus habilidades de forma clara.", answer:"Presenta tus habilidades claramente."},
+  {t:"15. ¿Cuál es la importancia de llegar a tiempo al trabajo o a una entrevista?", hint:"Demuestra responsabilidad.", answer:"Muestra responsabilidad y compromiso."},
+  {t:"16. ¿Qué significa tener responsabilidad en el trabajo?", hint:"Cumplir tareas y respetar reglas.", answer:"Ejecutar tareas correctamente y seguir reglas."},
+  {t:"17. ¿Cómo puede usarse el celular para facilitar la vida en el trabajo?", hint:"Ayuda en la comunicación y organización.", answer:"Organizar tareas y comunicación."},
+  {t:"18. Explica por qué es importante saber enviar un correo electrónico.", hint:"Permite comunicación formal y profesional.", answer:"Enviar mensajes formales correctamente."},
+  {t:"19. Da un ejemplo de cómo internet puede ayudar a un trabajador de la construcción.", hint:"Encontrar información o cursos.", answer:"Acceder a información y cursos en línea."},
+  {t:"20. ¿Por qué es importante aprender a usar apps de mensajería para comunicarse en la obra?", hint:"Facilitan la comunicación rápida.", answer:"Para comunicación rápida y eficiente."}
+];
+
+const LANG_MAP = { pt: PT_DATA, en: EN_DATA, es: ES_DATA };
+
+// Generic distractors per language (cycled)
+const DISTRACTORS = {
+  pt: [
+    'Não faz diferença.',
+    'É melhor ignorar.',
+    'Fazer de qualquer jeito.',
+    'Gritar e agir sem regras.'
+  ],
+  en: [
+    "It doesn't matter.",
+    'It is better to ignore it.',
+    'Do it anyway, no rules.',
+    'Shout and act without rules.'
+  ],
+  es: [
+    'No hace diferencia.',
+    'Es mejor ignorarlo.',
+    'Hacerlo de cualquier manera.',
+    'Gritar y actuar sin reglas.'
+  ]
+};
+
+let currentLang = 'pt';
+let startTime = Date.now();
 const app = document.getElementById('app');
+let renderCache = {}; // per-lang per-question options + correct index
+
+function ttsSpeak(text){
+  if(!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang = I18N[currentLang].voice;
+  const voices = speechSynthesis.getVoices();
+  const pref = voices.find(v=> v.lang && v.lang.startsWith(I18N[currentLang].voice.split('-')[0]));
+  if(pref) u.voice = pref;
+  speechSynthesis.speak(u);
+}
+
+function renderInst(){
+  document.getElementById('instTitle').textContent = I18N[currentLang].instTitle;
+  const ul = document.getElementById('instList');
+  ul.innerHTML = I18N[currentLang].instItems.map(li=>`<li>${li}</li>`).join('');
+}
+
+function renderHeader(){
+  document.documentElement.lang = I18N[currentLang].htmlLang;
+  document.getElementById('mainTitle').textContent = I18N[currentLang].title;
+  document.getElementById('playAll').textContent = I18N[currentLang].playAll;
+  document.getElementById('stopVoice').textContent = I18N[currentLang].stop;
+  document.getElementById('finalize').textContent = I18N[currentLang].finalize;
+  document.getElementById('reviewAnswers').textContent = I18N[currentLang].review;
+  document.getElementById('resetQuiz').textContent = I18N[currentLang].reset;
+  document.getElementById('reviewTitle').textContent = I18N[currentLang].reviewTitle;
+  document.getElementById('signature').textContent = (
+    currentLang==='en' ? 'Created by Marcelo Emanoel' :
+    currentLang==='es' ? 'Creado por Marcelo Emanoel' : 'Criado por Marcelo Emanoel'
+  );
+}
+
+function letters(i){ return ['A','B','C','D'][i] || '?'; }
+
+function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+
+function buildOptions(qIdx){
+  const data = LANG_MAP[currentLang];
+  const dlist = DISTRACTORS[currentLang];
+  // pick 3 distractors cycling with offset
+  const offs = qIdx % dlist.length;
+  const distract = [ dlist[offs], dlist[(offs+1)%dlist.length], dlist[(offs+2)%dlist.length] ];
+  const options = [ {text:data[qIdx].answer, isCorrect:true}, ...distract.map(t=>({text:t, isCorrect:false})) ];
+  const indices = [0,1,2,3];
+  shuffle(indices);
+  const mapped = indices.map((k)=> options[k]);
+  const correctIndex = mapped.findIndex(o=>o.isCorrect);
+  return { options: mapped, correctIndex };
+}
+
+function ensureCache(){
+  if(!renderCache[currentLang]) renderCache[currentLang] = {};
+  const cache = renderCache[currentLang];
+  const data = LANG_MAP[currentLang];
+  data.forEach((_, idx)=>{ if(!cache[idx]) cache[idx]=buildOptions(idx); });
+}
+
 function renderQuestions(){
-  DATA.forEach((q, idx)=>{
+  // remove old cards
+  document.querySelectorAll('.card.q').forEach(c=>c.remove());
+  ensureCache();
+  const data = LANG_MAP[currentLang];
+  data.forEach((q, idx)=>{
     const card=document.createElement('section');
-    card.className='card';
+    card.className='card q';
+    const { options, correctIndex } = renderCache[currentLang][idx];
+    const optsHTML = options.map((opt,i)=>
+      `<label class="option"><input type="radio" name="q${idx}" value="${i}"> <strong>${letters(i)}.</strong> ${opt.text}</label>`
+    ).join('');
     card.innerHTML=`
       <p class="question">${q.t}</p>
       <div class="actions">
-        <button class="btn speak" data-say="${q.t}">🔈</button>
+        <button class="btn speak" data-say="${q.t} ${options.map((o,i)=>`${letters(i)}) ${o.text}`).join(', ')}">🔈</button>
         <button class="btn hint-btn" data-id="${idx}">💡</button>
-        <button class="btn record" data-id="${idx}">🎙️</button>
       </div>
-      <textarea placeholder="Escreva sua resposta aqui..."></textarea>
+      <div class="options" data-correct="${correctIndex}" data-qidx="${idx}">${optsHTML}</div>
       <div class="hint-text" id="hint${idx}">${q.hint}</div>
     `;
     app.appendChild(card);
   });
 }
-renderQuestions();
 
-// Destaque ao clicar
-document.addEventListener('click', e=>{
-  if(body.classList.contains('dark')){
-    document.querySelectorAll('.card').forEach(c=>c.classList.remove('active-dark'));
-    const card = e.target.closest('.card');
-    if(card) card.classList.add('active-dark');
-  }
-});
+function bindHandlers(){
+  // focus highlight (dark mode only)
+  document.addEventListener('click', e=>{
+    if(document.body.classList.contains('dark')){
+      document.querySelectorAll('.card.q').forEach(c=>c.classList.remove('active-dark'));
+      const card = e.target.closest('.card.q');
+      if(card) card.classList.add('active-dark');
+    }
+  });
 
-// Voz
-function speak(text){ if(!('speechSynthesis' in window)) return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); u.lang='pt-BR'; speechSynthesis.speak(u);}
-document.querySelectorAll('.speak').forEach(btn=>{
-  btn.onclick=()=>{
-    btn.classList.add('speaking');
-    speak(btn.dataset.say);
-    setTimeout(()=>btn.classList.remove('speaking'),1500);
-  };
-});
-document.getElementById('playAll').onclick=()=>speak(DATA.map(q=>q.t).join('. '));
-document.getElementById('stopVoice').onclick=()=>speechSynthesis.cancel();
+  // speech buttons
+  document.querySelectorAll('.speak').forEach(btn=>{
+    btn.onclick=()=>{ btn.classList.add('speaking'); ttsSpeak(btn.dataset.say); setTimeout(()=>btn.classList.remove('speaking'),1500); };
+  });
 
-// Dicas
-document.querySelectorAll('.hint-btn').forEach(btn=>{ btn.onclick=()=>{ const h=document.getElementById('hint'+btn.dataset.id); h.classList.toggle('show'); if(h.classList.contains('show')) speak(h.textContent); };});
+  // hint buttons
+  document.querySelectorAll('.hint-btn').forEach(btn=>{ btn.onclick=()=>{ const h=document.getElementById('hint'+btn.dataset.id); h.classList.toggle('show'); if(h.classList.contains('show')) ttsSpeak(h.textContent); };});
 
-// Fonte
-let fontScale=1;
-function applyFont(){ document.documentElement.style.setProperty('--fontScale', fontScale); }
+  // answers
+  document.querySelectorAll('.options').forEach(group=>{
+    const qIdx = parseInt(group.dataset.qidx,10);
+    const correct = parseInt(group.dataset.correct,10);
+    group.querySelectorAll('input').forEach(inp=>{
+      inp.onchange = ()=>{
+        // lock group
+        group.querySelectorAll('input').forEach(i=> i.disabled = true);
+        const chosen = parseInt(inp.value,10);
+        const labels = [...group.querySelectorAll('.option')];
+        labels.forEach(l=>l.classList.remove('correct','wrong'));
+        labels[correct].classList.add('correct');
+        if(chosen !== correct) labels[chosen].classList.add('wrong');
+        scoreNow();
+      };
+    });
+  });
+}
+
+function scoreNow(){
+  const groups = [...document.querySelectorAll('.options')];
+  let answered = 0, correct = 0;
+  groups.forEach(g=>{
+    const chosen = [...g.querySelectorAll('input')].find(i=> i.checked);
+    if(chosen){
+      answered++;
+      const chosenVal = parseInt(chosen.value,10);
+      const correctIdx = parseInt(g.dataset.correct,10);
+      if(chosenVal===correctIdx) correct++;
+    }
+  });
+  const percent = Math.round((correct / groups.length) * 100);
+  const elapsed = Date.now() - startTime;
+  document.getElementById('scorePill').textContent = I18N[currentLang].pills.score(percent);
+  document.getElementById('timePill').textContent = I18N[currentLang].pills.time(formatTime(elapsed));
+  return {percent, elapsed, correct, total: groups.length};
+}
+
+function formatTime(ms){
+  const s = Math.floor(ms/1000);
+  const m = Math.floor(s/60); const ss = s%60; const mm = String(m).padStart(2,'0'); const sss = String(ss).padStart(2,'0');
+  return `${mm}:${sss}`;
+}
+
+function openReview(){
+  const L = I18N[currentLang];
+  const {percent} = scoreNow();
+  const modal = document.getElementById('modal');
+  const modalContent = document.getElementById('modalContent');
+  modalContent.innerHTML='';
+  const data = LANG_MAP[currentLang];
+  document.querySelectorAll('.options').forEach((group, idx)=>{
+    const correctIdx = parseInt(group.dataset.correct,10);
+    const chosen = [...group.querySelectorAll('input')].find(i=> i.checked);
+    const chosenIdx = chosen? parseInt(chosen.value,10) : -1;
+    const opts = renderCache[currentLang][idx].options;
+    const userText = chosenIdx>-1? opts[chosenIdx].text : '—';
+    const keyText = opts[correctIdx].text;
+    const isCorrect = chosenIdx===correctIdx;
+    const row=document.createElement('div');
+    row.className='answer-row';
+    row.innerHTML=`
+      <p><strong>${data[idx].t}</strong></p>
+      <p>${L.labels.yourAnswer}: <span class="${isCorrect?'correctTxt':'wrongTxt'}">${chosenIdx>-1? letters(chosenIdx)+') '+userText : '—'}</span></p>
+      <p>${L.labels.key}: <strong>${letters(correctIdx)}) ${keyText}</strong></p>
+    `;
+    modalContent.appendChild(row);
+    setTimeout(()=>row.classList.add('show'),40*idx);
+  });
+  document.getElementById('reviewTitle').textContent = `${L.reviewTitle} — ${percent}%`;
+  modal.style.display='flex';
+}
+
+function resetQuiz(){
+  startTime = Date.now();
+  document.getElementById('scorePill').textContent = I18N[currentLang].pills.score(0);
+  document.getElementById('timePill').textContent = I18N[currentLang].pills.time('00:00');
+  // clear selections
+  document.querySelectorAll('.options').forEach(g=>{
+    g.querySelectorAll('input').forEach(i=>{ i.checked=false; i.disabled=false; });
+    g.querySelectorAll('.option').forEach(o=> o.classList.remove('correct','wrong'));
+  });
+}
+
+function setLang(lang){
+  currentLang = lang;
+  renderCache[currentLang] = {}; // reset cache to reshuffle on language change
+  renderHeader();
+  renderInst();
+  renderQuestions();
+  bindHandlers();
+  startTime = Date.now();
+  scoreNow();
+}
+
+// ===== init =====
+setLang('pt');
+
+document.getElementById('lang').addEventListener('change', e=> setLang(e.target.value));
+
+document.getElementById('playAll').onclick=()=> {
+  const data = LANG_MAP[currentLang];
+  // Build speech: questions + options letters
+  const utter = data.map((q,idx)=>{
+    const opts = renderCache[currentLang][idx].options.map((o,i)=> `${letters(i)} ) ${o.text}`).join(', ');
+    return `${q.t}. ${opts}.`;
+  }).join(' ');
+  ttsSpeak(utter);
+};
+
+document.getElementById('stopVoice').onclick=()=> speechSynthesis.cancel();
+document.getElementById('reviewAnswers').onclick= openReview;
+document.getElementById('closeModal').onclick=()=> document.getElementById('modal').style.display='none';
+document.getElementById('finalize').onclick= scoreNow;
+
+document.getElementById('resetQuiz').onclick= resetQuiz;
+
+// Font sizing
+let fontScale=1; function applyFont(){ document.documentElement.style.setProperty('--fontScale', fontScale); }
 document.getElementById('fontPlus').onclick=()=>{ fontScale+=0.1; applyFont(); };
 document.getElementById('fontMinus').onclick=()=>{ fontScale=Math.max(0.8,fontScale-0.1); applyFont(); };
 
 // Dark mode
-const body=document.body;
-document.getElementById('toggleDark').onclick=()=> body.classList.toggle('dark');
+const bodyEl=document.body; document.getElementById('toggleDark').onclick=()=> bodyEl.classList.toggle('dark');
 
-// Reconhecimento de voz
-function startRecord(idx){
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if(!SpeechRecognition){ alert('Seu navegador não suporta reconhecimento de voz.'); return; }
-  const rec = new SpeechRecognition();
-  rec.lang = 'pt-BR';
-  const btn = app.querySelectorAll('.record')[idx];
-  btn.classList.add('speaking');
-  rec.start();
-  rec.onresult = e=>{
-    const txt = e.results[0][0].transcript;
-    app.querySelectorAll('textarea')[idx].value = txt;
-  };
-  rec.onend = ()=>btn.classList.remove('speaking');
-}
-document.querySelectorAll('.record').forEach(btn=>btn.onclick=()=>startRecord(btn.dataset.id));
-
-// Modal de revisão
-const modal = document.getElementById('modal');
-const modalContent = document.getElementById('modalContent');
-document.getElementById('reviewAnswers').onclick=()=>{
-  modalContent.innerHTML='';
-  app.querySelectorAll('textarea').forEach((ta, idx)=>{
-    const row=document.createElement('div');
-    row.className='answer-row';
-    const userAnswer = ta.value || '(vazio)';
-    const correctAnswer = DATA[idx].answer;
-    const correctClass = userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase() ? 'correct':'wrong';
-    if(correctClass==='correct') ta.classList.add('correct'); else ta.classList.add('wrong');
-    row.innerHTML=`
-      <p><strong>${DATA[idx].t}</strong></p>
-      <p>Sua resposta: <span class="${correctClass}">${userAnswer}</span></p>
-      <p>Gabarito: <strong>${correctAnswer}</strong></p>`;
-    modalContent.appendChild(row);
-    setTimeout(()=>row.classList.add('show'),50*idx);
-  });
-  modal.style.display='flex';
-};
-document.getElementById('closeModal').onclick=()=> modal.style.display='none';
-
-// Refazer quiz
-document.getElementById('resetQuiz').onclick=()=>{
-  app.innerHTML='';
-  renderQuestions();
-};
+// Timer ticker to update time pill every second
+setInterval(()=>{ const elapsed = Date.now()-startTime; document.getElementById('timePill').textContent = I18N[currentLang].pills.time(formatTime(elapsed)); }, 1000);
 </script>
 </body>
 </html>
+
