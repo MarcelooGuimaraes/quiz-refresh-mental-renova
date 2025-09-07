@@ -25,11 +25,11 @@
 * { box-sizing: border-box; }
 body{ margin:0; font-family: Inter, system-ui, sans-serif; background: var(--bg-light); color: var(--ink-light); line-height:1.6; font-size: calc(16px * var(--fontScale)); transition: background var(--transition), color var(--transition);}
 body.dark{ background: var(--bg-dark); color: var(--ink-dark);}
-header{ position:sticky; top:0; background: linear-gradient(135deg,var(--brand-blue),var(--brand-green)); color:white; display:flex; justify-content:space-between; align-items:center; padding:12px 24px; box-shadow:0 4px 12px rgba(0,0,0,.1); border-bottom:3px solid var(--brand-green);}
+header{ position:sticky; top:0; background: linear-gradient(135deg,var(--brand-blue),var(--brand-green)); color:white; display:flex; justify-content:space-between; align-items:center; padding:12px 24px; box-shadow:0 4px 12px rgba(0,0,0,.1); border-bottom:3px solid var(--brand-green); flex-wrap:wrap;}
 header .title{ display:flex; align-items:center; gap:16px;}
 header .title img{ height:50px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,.2);}
-header h1{ margin:0; font-size:clamp(20px,3vw,28px);}
-.controls{ display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+header h1{ margin:0; font-size:clamp(18px,4vw,28px);}
+.controls{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-top:8px;}
 .btn{ border:none; padding:10px 16px; border-radius:12px; cursor:pointer; background:#f9fafb; color:#111; font-weight:600; transition: transform var(--transition), background var(--transition), box-shadow var(--transition);}
 body.dark .btn{ background:#374151; color:white;}
 .btn:hover{ transform: translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.2); background:#e0f2fe;}
@@ -38,26 +38,41 @@ body.dark .btn:hover{ background:#4b5563;}
 main.wrap{ max-width:900px; margin:0 auto; padding:20px;}
 .instruction-card{ background:#e0f7ff; border-left:6px solid var(--brand-blue); padding:18px; border-radius: var(--radius); margin-bottom:20px; box-shadow:0 4px 16px rgba(0,0,0,.1);}
 body.dark .instruction-card{ background:#1e293b; border-left:6px solid var(--brand-green); color:white;}
-.card{ background: var(--card-light); border-radius: var(--radius); padding:20px; margin-bottom:20px; box-shadow:var(--shadow); transition: transform var(--transition), box-shadow var(--transition);}
-.card:hover{ transform: translateY(-4px); box-shadow:0 12px 24px rgba(0,0,0,.25);}
+.card{ background: var(--card-light); border-radius: var(--radius); padding:20px; margin-bottom:20px; box-shadow:var(--shadow); transition: transform var(--transition), box-shadow var(--transition), background var(--transition), background-position var(--transition);}
+.card:hover{ transform: translateY(-6px); box-shadow:0 16px 32px rgba(0,0,0,.3); background: linear-gradient(135deg,var(--brand-blue),var(--brand-green)); background-size: 200% 200%; animation: gradientMove 3s ease infinite;}
+@keyframes gradientMove{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 body.dark .card{ background: var(--card-dark);}
-.question{ font-weight:700; margin-bottom:14px;}
-.actions{ display:flex; gap:10px; margin-bottom:12px;}
-textarea{ width:100%; min-height:60px; padding:10px; border-radius:10px; border:1px solid #ccc; font-size:1rem; resize:vertical; transition: background var(--transition), color var(--transition);}
+.question{ font-weight:700; margin-bottom:14px; font-size:clamp(16px,2.5vw,20px);}
+.actions{ display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap;}
+textarea{ width:100%; min-height:60px; padding:10px; border-radius:10px; border:1px solid #ccc; font-size:1rem; resize:vertical; transition: background var(--transition), color var(--transition), border var(--transition);}
 body.dark textarea{ background:#374151; color:white; border-color:#555;}
-.hint-text{ display:none; margin-top:10px; padding:12px; background:#f0f9ff; border-left:4px solid var(--brand-blue); border-radius:8px; font-size:0.95rem;}
-.hint-text.show{ display:block;}
+textarea.correct{ border-color:#16a34a; background:#d1fae5; animation: pulseCorrect 0.5s;}
+textarea.wrong{ border-color:#dc2626; background:#fee2e2; animation: pulseWrong 0.5s;}
+@keyframes pulseCorrect{0%{transform:scale(1);}50%{transform:scale(1.03);}100%{transform:scale(1);}}
+@keyframes pulseWrong{0%{transform:scale(1);}50%{transform:scale(1.03);}100%{transform:scale(1);}}
+.hint-text{ display:none; margin-top:10px; padding:12px; background:#f0f9ff; border-left:4px solid var(--brand-blue); border-radius:8px; font-size:0.95rem; transition: transform 0.3s, opacity 0.3s;}
+.hint-text.show{ display:block; transform:translateY(0); opacity:1;}
 body.dark .hint-text{ background:#1e293b; border-left:4px solid var(--brand-green); color:white;}
 .modal-bg{ display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:100;}
 .modal{ background:white; border-radius:20px; max-width:800px; width:90%; max-height:80%; overflow-y:auto; padding:24px; position:relative; box-shadow:0 12px 28px rgba(0,0,0,.3);}
 body.dark .modal{ background:#1f2937; color:white;}
 .modal h2{ margin-top:0; color:var(--brand-blue);}
 .close-modal{ position:absolute; top:12px; right:12px; background:none; border:none; font-size:22px; cursor:pointer;}
-.answer-row{ margin-bottom:12px; padding:12px; border-radius:12px; background:#f9fafb; border:1px solid #ccc;}
+.answer-row{ margin-bottom:12px; padding:12px; border-radius:12px; background:#f9fafb; border:1px solid #ccc; transition: all 0.3s ease; opacity:0; transform:translateY(10px);}
+.answer-row.show{ opacity:1; transform:translateY(0);}
 body.dark .answer-row{ background:#374151; border-color:#555;}
 .answer-row p{ margin:6px 0;}
-.correct{ color:green; font-weight:700;}
-.wrong{ color:red; font-weight:700;}
+.correct{ color:#16a34a; font-weight:700;}
+.wrong{ color:#dc2626; font-weight:700;}
+footer{ text-align:center; padding:16px 0; color:#555; font-size:0.9rem; border-top:1px solid #ccc;}
+body.dark footer{ color:#aaa; border-color:#444;}
+
+/* Responsivo */
+@media(max-width:600px){
+  header{ flex-direction:column; align-items:flex-start;}
+  .controls{ margin-top:10px; justify-content:flex-start;}
+  .actions{ flex-direction:column;}
+}
 </style>
 </head>
 <body>
@@ -86,41 +101,45 @@ body.dark .answer-row{ background:#374151; border-color:#555;}
       <li>Você pode responder digitando na caixa ou usando <strong>🎙️</strong> para gravar via voz.</li>
       <li>Use os botões <strong>A+</strong> e <strong>A-</strong> para ajustar o tamanho da fonte.</li>
       <li>Use o botão <strong>🌙</strong> para alternar entre modo claro e escuro.</li>
-      <li>Quando terminar, clique em <strong>📋 Revisar respostas</strong> para conferir suas respostas.</li>
+      <li>Quando terminar, clique em <strong>📋 Revisar respostas</strong> para conferir suas respostas e gabarito.</li>
     </ul>
   </section>
 </main>
 
 <div class="modal-bg" id="modal">
   <div class="modal">
-    <button class="close-modal" id="closeModal">✖</button>
-    <h2>Revisão das Respostas</h2>
+    <button class="close-modal" id="closeModal">✖️</button>
+    <h2>Revisão de Respostas</h2>
     <div id="modalContent"></div>
   </div>
 </div>
 
+<footer>
+  Criado por Marcelo Emanoel
+</footer>
+
 <script>
-// Perguntas + dicas + gabarito
+// Perguntas
 const DATA = [
-  {t:"1. Por que é importante entender bem um bilhete ou aviso no canteiro de obras?", hint:"Evita mal-entendidos e acidentes.", answer:"Evitar acidentes e erros."},
-  {t:"2. Como a comunicação clara entre os colegas pode evitar acidentes?", hint:"A comunicação correta evita erros perigosos.", answer:"Garantindo que todos entendam as instruções."},
-  {t:"3. Dê um exemplo de como uma instrução mal compreendida pode causar erro na obra.", hint:"Uma tarefa feita errado pode comprometer a segurança.", answer:"Seguir passo errado pode causar acidente."},
-  {t:"4. Explique por que todo trabalhador precisa saber ler placas de segurança.", hint:"Placas informam riscos e regras importantes.", answer:"Para identificar riscos e seguir regras."},
-  {t:"5. Qual é a importância de respeitar os direitos dos trabalhadores na construção civil?", hint:"Garante dignidade e segurança para todos.", answer:"Garante segurança e justiça no trabalho."},
-  {t:"6. Por que o uso de EPIs é um direito e também um dever?", hint:"Protege o trabalhador e seus colegas.", answer:"Evita acidentes e protege todos."},
-  {t:"7. Como as pausas para descanso ajudam o trabalhador?", hint:"Reduzem cansaço e aumentam a segurança.", answer:"Mantém energia e segurança."},
-  {t:"8. Explique a importância de receber o salário em dia.", hint:"Assegura motivação e sustento.", answer:"Garantir sustento e motivação."},
-  {t:"9. Por que é importante respeitar os colegas de obra, mesmo quando há diferenças de opinião?", hint:"Mantém o ambiente saudável.", answer:"Para manter bom convívio e trabalho em equipe."},
-  {t:"10. Como pedir ajuda de forma educada no trabalho?", hint:"Com respeito e clareza.", answer:"Solicitando ajuda de forma clara e educada."},
-  {t:"11. Explique como a empatia pode melhorar o ambiente da obra.", hint:"Ajuda a entender e apoiar os colegas.", answer:"Compreendendo colegas e colaborando."},
-  {t:"12. Dê um exemplo de uma atitude que atrapalha a convivência no canteiro.", hint:"Desrespeitar regras ou colegas.", answer:"Ignorar regras ou colegas."},
-  {t:"13. Por que vale a pena continuar estudando mesmo já tendo um emprego?", hint:"Ajuda a crescer na profissão.", answer:"Para melhorar oportunidades de carreira."},
-  {t:"14. Explique como ter um bom currículo pode ajudar a conseguir uma vaga melhor.", hint:"Mostra suas habilidades de forma clara.", answer:"Apresenta suas competências de forma clara."},
-  {t:"15. Qual a importância de chegar no horário para o trabalho ou entrevista?", hint:"Demonstra responsabilidade.", answer:"Mostra comprometimento e respeito."},
-  {t:"16. O que significa ter responsabilidade no ambiente de trabalho?", hint:"Cumprir tarefas e respeitar regras.", answer:"Realizar tarefas corretamente e respeitar normas."},
-  {t:"17. Como o celular pode ser usado para facilitar a vida no trabalho?", hint:"Ajuda na comunicação e organização.", answer:"Para comunicação e organização."},
-  {t:"18. Explique por que é importante saber enviar um e-mail.", hint:"Permite comunicação formal e profissional.", answer:"Para comunicar-se formalmente."},
-  {t:"19. Dê um exemplo de como a internet pode ajudar um trabalhador da construção civil.", hint:"Encontrar informações ou cursos.", answer:"Pesquisar informações ou cursos online."},
+  {t:"1. Por que é importante entender bem um bilhete ou aviso no canteiro de obras?", hint:"Evita mal-entendidos e acidentes.", answer:"Evita mal-entendidos e acidentes."},
+  {t:"2. Como a comunicação clara entre os colegas pode evitar acidentes?", hint:"A comunicação correta evita erros perigosos.", answer:"Evita acidentes com comunicação clara."},
+  {t:"3. Dê um exemplo de como uma instrução mal compreendida pode causar erro na obra.", hint:"Uma tarefa feita errado pode comprometer a segurança.", answer:"Uma instrução mal compreendida pode causar acidentes ou retrabalho."},
+  {t:"4. Explique por que todo trabalhador precisa saber ler placas de segurança.", hint:"Placas informam riscos e regras importantes.", answer:"Para evitar acidentes e seguir normas de segurança."},
+  {t:"5. Qual é a importância de respeitar os direitos dos trabalhadores na construção civil?", hint:"Garante dignidade e segurança para todos.", answer:"Para garantir segurança e direitos aos trabalhadores."},
+  {t:"6. Por que o uso de EPIs é um direito e também um dever?", hint:"Protege o trabalhador e seus colegas.", answer:"Para proteção individual e coletiva."},
+  {t:"7. Como as pausas para descanso ajudam o trabalhador?", hint:"Reduzem cansaço e aumentam a segurança.", answer:"Diminui fadiga e aumenta a segurança."},
+  {t:"8. Explique a importância de receber o salário em dia.", hint:"Assegura motivação e sustento.", answer:"Garante sustento e motivação."},
+  {t:"9. Por que é importante respeitar os colegas de obra, mesmo quando há diferenças de opinião?", hint:"Mantém o ambiente saudável.", answer:"Para preservar um ambiente de trabalho saudável."},
+  {t:"10. Como pedir ajuda de forma educada no trabalho?", hint:"Com respeito e clareza.", answer:"Perguntando de forma clara e respeitosa."},
+  {t:"11. Explique como a empatia pode melhorar o ambiente da obra.", hint:"Ajuda a entender e apoiar os colegas.", answer:"Compreendendo e apoiando colegas."},
+  {t:"12. Dê um exemplo de uma atitude que atrapalha a convivência no canteiro.", hint:"Desrespeitar regras ou colegas.", answer:"Ignorar regras ou desrespeitar colegas."},
+  {t:"13. Por que vale a pena continuar estudando mesmo já tendo um emprego?", hint:"Ajuda a crescer na profissão.", answer:"Melhora oportunidades e crescimento profissional."},
+  {t:"14. Explique como ter um bom currículo pode ajudar a conseguir uma vaga melhor.", hint:"Mostra suas habilidades de forma clara.", answer:"Apresenta suas habilidades claramente."},
+  {t:"15. Qual a importância de chegar no horário para o trabalho ou entrevista?", hint:"Demonstra responsabilidade.", answer:"Mostra responsabilidade e compromisso."},
+  {t:"16. O que significa ter responsabilidade no ambiente de trabalho?", hint:"Cumprir tarefas e respeitar regras.", answer:"Executar tarefas corretamente e seguir regras."},
+  {t:"17. Como o celular pode ser usado para facilitar a vida no trabalho?", hint:"Ajuda na comunicação e organização.", answer:"Organizar tarefas e comunicação."},
+  {t:"18. Explique por que é importante saber enviar um e-mail.", hint:"Permite comunicação formal e profissional.", answer:"Enviar mensagens formais corretamente."},
+  {t:"19. Dê um exemplo de como a internet pode ajudar um trabalhador da construção civil.", hint:"Encontrar informações ou cursos.", answer:"Acessando informações e cursos online."},
   {t:"20. Por que é importante aprender a usar aplicativos de mensagem para se comunicar na obra?", hint:"Facilitam a comunicação rápida.", answer:"Para comunicação rápida e eficiente."}
 ];
 
@@ -175,10 +194,7 @@ document.getElementById('toggleDark').onclick=()=> document.body.classList.toggl
 // Reconhecimento de voz
 function startRecord(idx){
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if(!SpeechRecognition){
-    alert('Seu navegador não suporta reconhecimento de voz.');
-    return;
-  }
+  if(!SpeechRecognition){ alert('Seu navegador não suporta reconhecimento de voz.'); return; }
   const rec = new SpeechRecognition();
   rec.lang = 'pt-BR';
   rec.start();
@@ -200,10 +216,13 @@ document.getElementById('reviewAnswers').onclick=()=>{
     const userAnswer = ta.value || '(vazio)';
     const correctAnswer = DATA[idx].answer;
     const correctClass = userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase() ? 'correct':'wrong';
-    row.innerHTML=`<p><strong>${DATA[idx].t}</strong></p>
+    if(correctClass==='correct') ta.classList.add('correct'); else ta.classList.add('wrong');
+    row.innerHTML=`
+      <p><strong>${DATA[idx].t}</strong></p>
       <p>Sua resposta: <span class="${correctClass}">${userAnswer}</span></p>
       <p>Gabarito: <strong>${correctAnswer}</strong></p>`;
     modalContent.appendChild(row);
+    setTimeout(()=>row.classList.add('show'),50*idx); // animação sequencial
   });
   modal.style.display='flex';
 };
