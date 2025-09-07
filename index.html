@@ -25,7 +25,7 @@
 * { box-sizing: border-box; }
 body{ margin:0; font-family: Inter, system-ui, sans-serif; background: var(--bg-light); color: var(--ink-light); line-height:1.6; font-size: calc(16px * var(--fontScale)); transition: background var(--transition), color var(--transition);}
 body.dark{ background: var(--bg-dark); color: var(--ink-dark);}
-header{ position:sticky; top:0; background: linear-gradient(135deg,var(--brand-blue),var(--brand-green)); color:white; display:flex; justify-content:space-between; align-items:center; padding:12px 24px; box-shadow:0 4px 12px rgba(0,0,0,.1); border-bottom:3px solid var(--brand-green); flex-wrap:wrap;}
+header{ position:sticky; top:0; background: linear-gradient(135deg,var(--brand-blue),var(--brand-green)); color:white; display:flex; justify-content:space-between; align-items:center; padding:12px 24px; box-shadow:0 4px 12px rgba(0,0,0,.1); border-bottom:3px solid var(--brand-green); flex-wrap:wrap; z-index:100;}
 header .title{ display:flex; align-items:center; gap:16px;}
 header .title img{ height:50px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,.2);}
 header h1{ margin:0; font-size:clamp(18px,4vw,28px);}
@@ -35,13 +35,13 @@ body.dark .btn{ background:#374151; color:white;}
 .btn:hover{ transform: translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.2); background:#e0f2fe;}
 body.dark .btn:hover{ background:#4b5563;}
 .btn.primary{ background: linear-gradient(135deg,var(--brand-blue),var(--brand-green)); color:white;}
-main.wrap{ max-width:900px; margin:0 auto; padding:20px;}
+main.wrap{ max-width:900px; margin:20px auto 40px; padding:20px;}
 .instruction-card{ background:#e0f7ff; border-left:6px solid var(--brand-blue); padding:18px; border-radius: var(--radius); margin-bottom:20px; box-shadow:0 4px 16px rgba(0,0,0,.1);}
 body.dark .instruction-card{ background:#1e293b; border-left:6px solid var(--brand-green); color:white;}
-.card{ background: var(--card-light); border-radius: var(--radius); padding:20px; margin-bottom:20px; box-shadow:var(--shadow); transition: transform var(--transition), box-shadow var(--transition), background var(--transition), background-position var(--transition);}
-.card:hover{ transform: translateY(-6px); box-shadow:0 16px 32px rgba(0,0,0,.3); background: linear-gradient(135deg,var(--brand-blue),var(--brand-green)); background-size: 200% 200%; animation: gradientMove 3s ease infinite;}
-@keyframes gradientMove{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.card{ background: var(--card-light); border-radius: var(--radius); padding:20px; margin-bottom:20px; box-shadow:var(--shadow); transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border var(--transition);}
+.card:hover{ transform: translateY(-6px); box-shadow:0 16px 32px rgba(0,0,0,.3);}
 body.dark .card{ background: var(--card-dark);}
+.card.active-dark{ border: 2px solid #fde68a; box-shadow: 0 0 20px #fde68a;}
 .question{ font-weight:700; margin-bottom:14px; font-size:clamp(16px,2.5vw,20px);}
 .actions{ display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap;}
 textarea{ width:100%; min-height:60px; padding:10px; border-radius:10px; border:1px solid #ccc; font-size:1rem; resize:vertical; transition: background var(--transition), color var(--transition), border var(--transition);}
@@ -64,10 +64,10 @@ body.dark .answer-row{ background:#374151; border-color:#555;}
 .answer-row p{ margin:6px 0;}
 .correct{ color:#16a34a; font-weight:700;}
 .wrong{ color:#dc2626; font-weight:700;}
+.speaking{ animation: pulseSpeak 1s infinite; background:#fde68a !important;}
+@keyframes pulseSpeak{0%{transform:scale(1);}50%{transform:scale(1.1);}100%{transform:scale(1);}}
 footer{ text-align:center; padding:16px 0; color:#555; font-size:0.9rem; border-top:1px solid #ccc;}
 body.dark footer{ color:#aaa; border-color:#444;}
-
-/* Responsivo */
 @media(max-width:600px){
   header{ flex-direction:column; align-items:flex-start;}
   .controls{ margin-top:10px; justify-content:flex-start;}
@@ -89,6 +89,7 @@ body.dark footer{ color:#aaa; border-color:#444;}
     <button class="btn" id="fontPlus">A+</button>
     <button class="btn" id="fontMinus">A-</button>
     <button class="btn" id="reviewAnswers">📋 Revisar respostas</button>
+    <button class="btn" id="resetQuiz">🔄 Refazer Quiz</button>
   </div>
 </header>
 
@@ -145,42 +146,48 @@ const DATA = [
 
 // Render perguntas
 const app = document.getElementById('app');
-DATA.forEach((q, idx)=>{
-  const card=document.createElement('section');
-  card.className='card';
-  card.innerHTML=`
-    <p class="question">${q.t}</p>
-    <div class="actions">
-      <button class="btn speak" data-say="${q.t}">🔈</button>
-      <button class="btn hint-btn" data-id="${idx}">💡</button>
-      <button class="btn record" data-id="${idx}">🎙️</button>
-    </div>
-    <textarea placeholder="Escreva sua resposta aqui..."></textarea>
-    <div class="hint-text" id="hint${idx}">${q.hint}</div>
-  `;
-  app.appendChild(card);
+function renderQuestions(){
+  DATA.forEach((q, idx)=>{
+    const card=document.createElement('section');
+    card.className='card';
+    card.innerHTML=`
+      <p class="question">${q.t}</p>
+      <div class="actions">
+        <button class="btn speak" data-say="${q.t}">🔈</button>
+        <button class="btn hint-btn" data-id="${idx}">💡</button>
+        <button class="btn record" data-id="${idx}">🎙️</button>
+      </div>
+      <textarea placeholder="Escreva sua resposta aqui..."></textarea>
+      <div class="hint-text" id="hint${idx}">${q.hint}</div>
+    `;
+    app.appendChild(card);
+  });
+}
+renderQuestions();
+
+// Destaque ao clicar
+document.addEventListener('click', e=>{
+  if(body.classList.contains('dark')){
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('active-dark'));
+    const card = e.target.closest('.card');
+    if(card) card.classList.add('active-dark');
+  }
 });
 
 // Voz
-function speak(text){
-  if(!('speechSynthesis' in window)) return;
-  speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang='pt-BR';
-  speechSynthesis.speak(u);
-}
-document.querySelectorAll('.speak').forEach(btn=>btn.onclick=()=>speak(btn.dataset.say));
+function speak(text){ if(!('speechSynthesis' in window)) return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); u.lang='pt-BR'; speechSynthesis.speak(u);}
+document.querySelectorAll('.speak').forEach(btn=>{
+  btn.onclick=()=>{
+    btn.classList.add('speaking');
+    speak(btn.dataset.say);
+    setTimeout(()=>btn.classList.remove('speaking'),1500);
+  };
+});
 document.getElementById('playAll').onclick=()=>speak(DATA.map(q=>q.t).join('. '));
 document.getElementById('stopVoice').onclick=()=>speechSynthesis.cancel();
 
 // Dicas
-document.querySelectorAll('.hint-btn').forEach(btn=>{
-  btn.onclick=()=>{
-    const h=document.getElementById('hint'+btn.dataset.id);
-    h.classList.toggle('show');
-    if(h.classList.contains('show')) speak(h.textContent);
-  };
-});
+document.querySelectorAll('.hint-btn').forEach(btn=>{ btn.onclick=()=>{ const h=document.getElementById('hint'+btn.dataset.id); h.classList.toggle('show'); if(h.classList.contains('show')) speak(h.textContent); };});
 
 // Fonte
 let fontScale=1;
@@ -189,7 +196,8 @@ document.getElementById('fontPlus').onclick=()=>{ fontScale+=0.1; applyFont(); }
 document.getElementById('fontMinus').onclick=()=>{ fontScale=Math.max(0.8,fontScale-0.1); applyFont(); };
 
 // Dark mode
-document.getElementById('toggleDark').onclick=()=> document.body.classList.toggle('dark');
+const body=document.body;
+document.getElementById('toggleDark').onclick=()=> body.classList.toggle('dark');
 
 // Reconhecimento de voz
 function startRecord(idx){
@@ -197,11 +205,14 @@ function startRecord(idx){
   if(!SpeechRecognition){ alert('Seu navegador não suporta reconhecimento de voz.'); return; }
   const rec = new SpeechRecognition();
   rec.lang = 'pt-BR';
+  const btn = app.querySelectorAll('.record')[idx];
+  btn.classList.add('speaking');
   rec.start();
   rec.onresult = e=>{
     const txt = e.results[0][0].transcript;
     app.querySelectorAll('textarea')[idx].value = txt;
   };
+  rec.onend = ()=>btn.classList.remove('speaking');
 }
 document.querySelectorAll('.record').forEach(btn=>btn.onclick=()=>startRecord(btn.dataset.id));
 
@@ -222,11 +233,17 @@ document.getElementById('reviewAnswers').onclick=()=>{
       <p>Sua resposta: <span class="${correctClass}">${userAnswer}</span></p>
       <p>Gabarito: <strong>${correctAnswer}</strong></p>`;
     modalContent.appendChild(row);
-    setTimeout(()=>row.classList.add('show'),50*idx); // animação sequencial
+    setTimeout(()=>row.classList.add('show'),50*idx);
   });
   modal.style.display='flex';
 };
 document.getElementById('closeModal').onclick=()=> modal.style.display='none';
+
+// Refazer quiz
+document.getElementById('resetQuiz').onclick=()=>{
+  app.innerHTML='';
+  renderQuestions();
+};
 </script>
 </body>
 </html>
